@@ -5,6 +5,9 @@
  */
 package testjavabeans;
 
+import mybeans.FirstBean;
+import mybeans.Receptor;
+
 /**
  *
  * @author pdavila
@@ -16,6 +19,16 @@ public class TestJavaBeans {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        FirstBean b = new FirstBean();
+        Receptor r = new Receptor();
+        
+        //Registrem al receptor com a listener de l'bjecte FirstBean
+        b.addPropertyChangeListener(r);
+        
+        //Canvien el valor de la propietat sampleProperty per provocar la reacció del receptor
+        b.setSampleProperty("He canviat");
+        
     }
     
 }
