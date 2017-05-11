@@ -5,8 +5,9 @@
  */
 package testjavabeans;
 
+import java.beans.PropertyVetoException;
 import mybeans.FirstBean;
-import mybeans.Receptor;
+import mybeans.ReceptorVetador;
 
 /**
  *
@@ -21,14 +22,42 @@ public class TestJavaBeans {
         // TODO code application logic here
         
         FirstBean b = new FirstBean();
-        Receptor r = new Receptor();
+
+        ReceptorVetador r = new ReceptorVetador();
+        b.addVetoableChangeListener(r);
         
-        //Registrem al receptor com a listener de l'bjecte FirstBean
-        b.addPropertyChangeListener(r);
+        //Intentem posar -1 com a valor de la propietat quantitat
+        System.out.println("Intent de canvi a la propietat quantitat.");
+        System.out.println("Valor actual: " + b.getQuantitat());  
+        System.out.println("Nou valor: -1.");
         
-        //Canvien el valor de la propietat sampleProperty per provocar la reacció del receptor
-        b.setSampleProperty("He canviat");
+        try {
+            b.setQuantitat(-1);
+        } catch (PropertyVetoException ex) {
+            System.out.println("No s'ha permès el canvi!!");            
+        }
+
+        //Intentem posar 160 com a valor de la propietat quantitat
+        System.out.println("\nIntent de canvi a la propietat quantitat.");
+        System.out.println("Valor actual: " + b.getQuantitat());  
+        System.out.println("Nou valor: 160.");
         
+        try {
+            b.setQuantitat(160);
+        } catch (PropertyVetoException ex) {
+            System.out.println("No s'ha permès el canvi!!");            
+        }
+        
+        //Intentem posar 25 com a valor de la propietat quantitat
+        System.out.println("\nIntent de canvi a la propietat quantitat.");
+        System.out.println("Valor actual: "+b.getQuantitat());  
+        System.out.println("Nou valor: 25.");
+        
+        try {
+            b.setQuantitat(25);
+        } catch (PropertyVetoException ex) {
+            System.out.println("No s'ha permès el canvi!!");            
+        }  
     }
     
 }
